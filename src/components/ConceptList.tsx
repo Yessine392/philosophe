@@ -16,7 +16,7 @@ export function ConceptList() {
 
   useEffect(() => {
     const fromHash = () => {
-      const h = decodeURIComponent(window.location.hash.slice(1));
+      const h = decodeURIComponent(window.location.hash.slice(1)).replace(/^concept-/, "");
       if (conceptBySlug[h]) {
         setOpen(h);
         setTimeout(() => document.getElementById(h)?.scrollIntoView({ behavior: "smooth", block: "center" }), 120);
@@ -54,7 +54,7 @@ export function ConceptList() {
             key={c.slug}
             onClick={() => {
               setOpen(c.slug);
-              history.replaceState(null, "", `#${c.slug}`);
+              history.replaceState(null, "", `#concept-${c.slug}`);
             }}
             className={`glass mb-4 block w-full break-inside-avoid rounded-3xl p-6 text-left transition hover:-translate-y-0.5 hover:border-gold-300/30 ${
               open === c.slug ? "border-gold-300/50" : ""
@@ -80,7 +80,7 @@ export function ConceptList() {
             exit={{ opacity: 0 }}
             onClick={() => {
               setOpen(null);
-              history.replaceState(null, "", window.location.pathname);
+              history.replaceState(null, "", window.location.pathname + ("__philoSearch" in window ? "#concepts" : ""));
             }}
           >
             <motion.div
@@ -94,7 +94,7 @@ export function ConceptList() {
               <button
                 onClick={() => {
                   setOpen(null);
-                  history.replaceState(null, "", window.location.pathname);
+                  history.replaceState(null, "", window.location.pathname + ("__philoSearch" in window ? "#concepts" : ""));
                 }}
                 className="absolute top-5 right-5 grid h-10 w-10 place-items-center rounded-full text-white/50 hover:bg-white/10 hover:text-white"
                 aria-label="Fermer"
@@ -130,7 +130,7 @@ export function ConceptList() {
                         key={r}
                         onClick={() => {
                           setOpen(r);
-                          history.replaceState(null, "", `#${r}`);
+                          history.replaceState(null, "", `#concept-${r}`);
                         }}
                         className="rounded-full border border-white/10 px-3.5 py-1.5 text-sm text-white/70 hover:border-gold-300/50 hover:text-white"
                       >

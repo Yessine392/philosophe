@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import { useState } from "react";
 import { ranks, rankOf, removeNote, updateProgress, useProgress, xpOf } from "@/lib/progress";
 import { philosopherBySlug } from "@/data/philosophers";
 import { paths, totalLessons } from "@/data/paths";
@@ -10,6 +11,7 @@ import { Markdown } from "./Markdown";
 import { PathProgressBar } from "./PathProgress";
 
 export function Carnet() {
+  const [confirming, setConfirming] = useState(false);
   const progress = useProgress();
   const xp = xpOf(progress);
   const rank = rankOf(xp);
@@ -138,16 +140,27 @@ export function Carnet() {
       </section>
 
       <div className="mt-16 text-center">
-        <button
-          onClick={() => {
-            if (window.confirm("Effacer toute ta progression et ton carnet ?")) {
-              updateProgress(() => ({ lessons: {}, met: [], messages: 0, debates: 0, notes: [] }));
-            }
-          }}
-          className="text-xs text-white/30 hover:text-rose-300"
-        >
-          Réinitialiser ma progression
-        </button>
+        {confirming ? (
+          <p className="text-xs text-white/50">
+            Effacer toute ta progression et ton carnet ?{" "}
+            <button
+              onClick={() => {
+                updateProgress(() => ({ lessons: {}, met: [], messages: 0, debates: 0, notes: [] }));
+                setConfirming(false);
+              }}
+              className="ml-2 text-rose-300 hover:text-rose-200"
+            >
+              Oui, effacer
+            </button>
+            <button onClick={() => setConfirming(false)} className="ml-3 text-white/50 hover:text-white">
+              Annuler
+            </button>
+          </p>
+        ) : (
+          <button onClick={() => setConfirming(true)} className="text-xs text-white/30 hover:text-rose-300">
+            Réinitialiser ma progression
+          </button>
+        )}
       </div>
     </div>
   );

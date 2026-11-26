@@ -28,7 +28,8 @@ const noop = () => () => {};
 export function Chat(props: { philosopher: Philosopher }) {
   const isClient = useSyncExternalStore(noop, () => true, () => false);
   if (!isClient) return <div className="min-h-[100svh]" />;
-  const q = new URLSearchParams(window.location.search).get("q");
+  const w = window as Window & { __philoSearch?: string };
+  const q = new URLSearchParams(w.__philoSearch ?? window.location.search).get("q");
   return <ChatInner key={props.philosopher.slug} {...props} initialQuestion={q ? q.slice(0, 600) : undefined} />;
 }
 
@@ -117,7 +118,9 @@ function ChatInner({ philosopher, initialQuestion }: { philosopher: Philosopher;
     const t = setTimeout(() => {
       started.current = true;
       send(initialQuestion, loadHistory(p.slug));
-      window.history.replaceState(null, "", `/dialogue/${p.slug}`);
+      const w = window as Window & { __philoSearch?: string };
+      if (w.__philoSearch !== undefined) w.__philoSearch = "";
+      else window.history.replaceState(null, "", `/dialogue/${p.slug}`);
     }, 250);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
