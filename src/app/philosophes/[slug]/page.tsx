@@ -51,7 +51,7 @@ export default async function Page(props: PageProps<"/philosophes/[slug]">) {
             <h1 className="mt-4 font-display text-5xl font-light tracking-tight text-white sm:text-7xl">{p.name}</h1>
             <p className="mt-3 text-white/50">{p.dates}</p>
             <p className="mx-auto mt-8 max-w-2xl font-display text-2xl leading-snug text-white/85 italic sm:text-3xl">
-              « {p.tagline} »
+              «&nbsp;{p.tagline}&nbsp;»
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link

@@ -21,7 +21,7 @@ export function PhilosopherCard({ p }: { p: Philosopher }) {
           <p className="text-xs text-white/45">{p.dates}</p>
         </div>
       </div>
-      <p className="mt-5 flex-1 font-display text-[1.05rem] leading-snug text-white/75 italic">« {p.tagline} »</p>
+      <p className="mt-5 flex-1 font-display text-[1.05rem] leading-snug text-white/75 italic">«&nbsp;{p.tagline}&nbsp;»</p>
       <div className="mt-6 flex flex-wrap items-center gap-2 text-[11px] tracking-wide text-white/50 uppercase">
         <span className="rounded-full border border-white/10 px-2.5 py-1">{eraById[p.era].name}</span>
         <span className="rounded-full border border-white/10 px-2.5 py-1">{p.school}</span>

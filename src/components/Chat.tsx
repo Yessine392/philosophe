@@ -195,7 +195,7 @@ function ChatInner({ philosopher, initialQuestion }: { philosopher: Philosopher;
           >
             <Avatar philosopher={p} size={110} className="mx-auto" />
             <h1 className="mt-6 font-display text-4xl font-light text-white sm:text-5xl">{p.name}</h1>
-            <p className="mx-auto mt-4 max-w-lg font-display text-xl text-white/70 italic">« {p.tagline} »</p>
+            <p className="mx-auto mt-4 max-w-lg font-display text-xl text-white/70 italic">«&nbsp;{p.tagline}&nbsp;»</p>
             <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-white/45">
               Pose ta question comme tu la poserais à un maître. Il te répondra à partir de ses œuvres, et
               t&apos;interrogera à son tour.
