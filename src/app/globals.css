@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --color-ink-950: #06060b;
+  --color-ink-900: #0b0b14;
+  --color-ink-800: #12121f;
+  --color-ink-700: #1b1b2c;
+  --color-parchment: #f4ecdc;
+  --color-gold-200: #f6e3b4;
+  --color-gold-300: #eccf8d;
+  --color-gold-400: #e0b866;
+  --color-gold-500: #c99a43;
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-shimmer: shimmer 3.2s linear infinite;
+  --animate-spin-slow: spin 60s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -18px, 0) scale(1.03); }
+  }
+  @keyframes shimmer {
+    from { background-position: 0% 50%; }
+    to { background-position: 200% 50%; }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-ink-950);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink-950);
+  color: #e9e6f2;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-gold-400) 40%, transparent);
+  color: white;
+}
+
+/* Fond : aurores et grain */
+.cosmos {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, rgb(124 92 255 / 0.18), transparent 60%),
+    radial-gradient(50rem 36rem at 95% 10%, rgb(224 184 102 / 0.12), transparent 60%),
+    radial-gradient(70rem 50rem at 50% 120%, rgb(40 160 200 / 0.12), transparent 60%),
+    var(--color-ink-950);
+}
+.cosmos::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@utility glass {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.02));
+  border: 1px solid rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+@utility text-gilded {
+  background: linear-gradient(100deg, #fff6df 0%, #eccf8d 30%, #c99a43 50%, #f6e3b4 70%, #fff6df 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hairline {
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.14), transparent);
+  height: 1px;
+}
+
+.prose-philo p { margin: 0 0 0.85em; }
+.prose-philo p:last-child { margin-bottom: 0; }
+.prose-philo strong { color: #fff; font-weight: 600; }
+.prose-philo em { color: var(--color-gold-200); }
+.prose-philo ul, .prose-philo ol { margin: 0.4em 0 0.9em 1.2em; }
+.prose-philo ul { list-style: disc; }
+.prose-philo ol { list-style: decimal; }
+.prose-philo li { margin: 0.2em 0; }
+.prose-philo li::marker { color: var(--color-gold-400); }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+/* Tableaux vivants */
+@keyframes tableau-pan {
+  from { object-position: var(--x0) 50%; transform: scale(var(--s0)); }
+  to { object-position: var(--x1) 50%; transform: scale(var(--s1)); }
+}
+.tableau-pan { animation: tableau-pan 38s ease-in-out infinite alternate; transform-origin: 50% 60%; will-change: transform; }
+@keyframes tableau-reveal {
+  from { opacity: 0; filter: blur(14px) sepia(0.8) brightness(0.5); transform: scale(1.04); }
+  to { opacity: 1; filter: none; transform: none; }
+}
+.tableau-reveal { animation: tableau-reveal 2.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes tableau-breathe { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+.tableau-breathe { animation: tableau-breathe 7s ease-in-out infinite; }
+@keyframes tableau-rays { from { transform: rotate(-4deg); opacity: 0.7; } to { transform: rotate(4deg); opacity: 1; } }
+.tableau-rays { animation: tableau-rays 14s ease-in-out infinite alternate; transform-origin: 62% 0%; }
+@keyframes tableau-flicker {
+  0%, 100% { opacity: 0.85; } 20% { opacity: 0.7; } 40% { opacity: 0.95; } 55% { opacity: 0.75; } 80% { opacity: 0.9; }
+}
+.tableau-flicker { animation: tableau-flicker 3.2s steps(1, end) infinite, tableau-breathe 5s ease-in-out infinite; }
+@keyframes tableau-fog { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+.tableau-fog { animation: tableau-fog 26s ease-in-out infinite alternate; }
+.tableau-fog-2 { animation: tableau-fog 34s ease-in-out infinite alternate-reverse; }
+@keyframes tableau-lightning {
+  0%, 89%, 92%, 95%, 100% { opacity: 0; } 90% { opacity: 0.45; } 93.5% { opacity: 0.25; }
+}
+.tableau-lightning { animation: tableau-lightning 9s linear infinite; mix-blend-mode: overlay; }
+@media (prefers-reduced-motion: reduce) {
+  .tableau-pan, .tableau-breathe, .tableau-rays, .tableau-flicker, .tableau-fog, .tableau-fog-2, .tableau-lightning, .tableau-reveal { animation: none; }
+}
+.voyage-text .prose-philo > p:first-child { font-family: var(--font-display); font-size: 1.22em; line-height: 1.55; color: #fff; }
