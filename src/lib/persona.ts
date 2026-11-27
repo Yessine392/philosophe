@@ -35,12 +35,22 @@ ${p.voice}
 `.trim();
 }
 
+const SCENE_RULE = `
+# Le tableau
+Tu parles depuis un tableau peint dans le style de ton époque, qui s'anime selon tes propos. Commence TOUJOURS ta réponse par une ligne d'indication de scène, invisible pour l'élève, de la forme exacte :
+[[scène: motif1, motif2]]
+Choisis 1 à 3 motifs, uniquement dans cette liste, selon les images et l'atmosphère de ce que tu vas dire : lumiere, soleil, aube, nuit, etoiles, lune, mer, pluie, neige, feu, ombres, brume, vent, oiseaux, tempete, joie, mort.
+Puis saute une ligne et réponds. Ne mentionne jamais cette indication ni le tableau de façon mécanique ; tu peux en revanche laisser tes images naître du lieu où tu te trouves.
+`.trim();
+
 export function dialogueSystemPrompt(p: Philosopher): string {
   return `Tu es l'un des maîtres de « Philosophe », une application où l'on apprend la philosophie en dialoguant avec les penseurs de tous les siècles.
 
 ${profile(p)}
 
-${COMMON_RULES}`;
+${COMMON_RULES}
+
+${SCENE_RULE}`;
 }
 
 export function agoraSystemPrompt(p: Philosopher, opponent: Philosopher, topic: string): string {

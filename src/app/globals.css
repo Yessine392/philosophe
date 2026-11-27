@@ -121,3 +121,34 @@ body {
 @keyframes orbit {
   to { transform: rotate(360deg); }
 }
+
+/* Tableaux vivants */
+@keyframes tableau-pan {
+  from { object-position: var(--x0) 50%; transform: scale(var(--s0)); }
+  to { object-position: var(--x1) 50%; transform: scale(var(--s1)); }
+}
+.tableau-pan { animation: tableau-pan 38s ease-in-out infinite alternate; transform-origin: 50% 60%; will-change: transform; }
+@keyframes tableau-reveal {
+  from { opacity: 0; filter: blur(14px) sepia(0.8) brightness(0.5); transform: scale(1.04); }
+  to { opacity: 1; filter: none; transform: none; }
+}
+.tableau-reveal { animation: tableau-reveal 2.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes tableau-breathe { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+.tableau-breathe { animation: tableau-breathe 7s ease-in-out infinite; }
+@keyframes tableau-rays { from { transform: rotate(-4deg); opacity: 0.7; } to { transform: rotate(4deg); opacity: 1; } }
+.tableau-rays { animation: tableau-rays 14s ease-in-out infinite alternate; transform-origin: 62% 0%; }
+@keyframes tableau-flicker {
+  0%, 100% { opacity: 0.85; } 20% { opacity: 0.7; } 40% { opacity: 0.95; } 55% { opacity: 0.75; } 80% { opacity: 0.9; }
+}
+.tableau-flicker { animation: tableau-flicker 3.2s steps(1, end) infinite, tableau-breathe 5s ease-in-out infinite; }
+@keyframes tableau-fog { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+.tableau-fog { animation: tableau-fog 26s ease-in-out infinite alternate; }
+.tableau-fog-2 { animation: tableau-fog 34s ease-in-out infinite alternate-reverse; }
+@keyframes tableau-lightning {
+  0%, 89%, 92%, 95%, 100% { opacity: 0; } 90% { opacity: 0.45; } 93.5% { opacity: 0.25; }
+}
+.tableau-lightning { animation: tableau-lightning 9s linear infinite; mix-blend-mode: overlay; }
+@media (prefers-reduced-motion: reduce) {
+  .tableau-pan, .tableau-breathe, .tableau-rays, .tableau-flicker, .tableau-fog, .tableau-fog-2, .tableau-lightning, .tableau-reveal { animation: none; }
+}
+.voyage-text .prose-philo > p:first-child { font-family: var(--font-display); font-size: 1.22em; line-height: 1.55; color: #fff; }
